@@ -115,10 +115,6 @@ hr {
   padding: 0;
 }
 
-.fa {
-  display: block;
-}
-
 .flex-row,
 .flex-column {
   display: flex;
@@ -164,6 +160,10 @@ hr {
   overflow: auto;
 }
 
+.align-right {
+  text-align: right;
+}
+
 .site-header {
   padding: .5em 1em;
   font-family: 'Source Sans Pro', sans-serif;
@@ -199,7 +199,6 @@ hr {
 
 .site-title {
   display: inline-block;
-  margin: 0 .25em .25em 0;
   padding: 0;
   font-size: inherit;
 }
@@ -214,35 +213,21 @@ hr {
 }
 
 @keyframes mymove {
-    0% {
-        left: 0;
-        transform: rotateY(0);
-        z-index: 0;
-    }
-    39% {
-        z-index: 0;
-    }
-    40% {
-        left: 0;
-        transform: rotateY(0);
-        z-index: 1;
-    }
-    60% {
-        left: 100%;
-        transform: rotateY(720deg);
-        z-index: 1;
-    }
-    61% {
-        z-index: 0;
-    }
-    80% {
-        left: 100%;
-        transform: rotateY(720deg);
-    }
-    100% {
-        left: 0;
-        transform: rotateY(0);
-    }
+  0% {
+    transform: rotateY(0);
+  }
+  40% {
+    transform: rotateY(0);
+  }
+  60% {
+    transform: rotateY(720deg);
+  }
+  80% {
+    transform: rotateY(720deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
 }
 
 .site-subtitle > * {
@@ -354,16 +339,37 @@ hr {
   text-align: right;
 }
 
-.lang-bar a {
+.social-bar a {
   margin: .3em;
   text-decoration: none;
   color: #a2a2a5;
 }
 
-.lang-bar a:hover,
-.en:lang(en),
-.fr:lang(fr) {
+.social-bar a:hover {
   color: #fff;
+}
+
+/*****************************************************************************
+    TeX, LaTeX logos : thanks Edward O'Connor
+    http://edward.oconnor.cx/2007/08/tex-poshlet
+*****************************************************************************/
+.tex, .latex, .tex .e, .latex .e {
+  font-family: Times, "Times New Roman", Times, serif;	
+  font-size: 1em;
+}
+.tex .e, .latex .e, .latex .a {
+  text-transform: uppercase;
+}
+.tex .e, .latex .e {
+  vertical-align: -0.5ex;
+  margin-right: -0.125em;
+  margin-left: -0.1667em;
+}
+.latex .a {
+  font-size: 0.85em;
+  vertical-align: 0.15em;
+  margin-right: -0.15em;
+  margin-left: -0.36em;
 }
 
 @media screen and (max-width: 470px) {
@@ -382,6 +388,39 @@ hr {
 
   .content {
     max-width: 40rem;
+  }
+
+
+  @keyframes mymove {
+    0% {
+      left: 0;
+      transform: rotateY(0);
+      z-index: 0;
+    }
+    39% {
+      z-index: 0;
+    }
+    40% {
+      left: 0;
+      transform: rotateY(0);
+      z-index: 1;
+    }
+    60% {
+      left: 100%;
+      transform: rotateY(720deg);
+      z-index: 1;
+    }
+    61% {
+      z-index: 0;
+    }
+    80% {
+      left: 100%;
+      transform: rotateY(720deg);
+    }
+    100% {
+      left: 0;
+      transform: rotateY(0);
+    }
   }
 
 }
