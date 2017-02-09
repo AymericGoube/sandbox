@@ -15,6 +15,16 @@
 $articles_dir = "billets";
 $show_article = false;
 
+// lister le contenu d'un répertoire dans un tableau : scandir
+// http://php.net/manual/fr/function.scandir.php
+// attention à l'ordre
+
+$entries = scandir($articles_dir, SCANDIR_SORT_DESCENDING);
+
+// supprimer . et .. : différence de 2 tableaux
+
+$entries = array_diff($entries, array(".", ".."));
+
 if(isset($_GET['wanted']))
 {
     $article_path = "$articles_dir/" . $_GET["wanted"] . ".php";
@@ -32,10 +42,50 @@ if(isset($_GET['wanted']))
     )
     {
         $show_article = true;
+
+        // trouver la position d'un élément dans un tableau : array_search
+        // http://stackoverflow.com/questions/7459818/how-to-get-the-position-of-a-key-within-an-array
+        // http://php.net/manual/en/function.array-search.php
+
+        $current_index = array_search($_GET["wanted"].".php", $entries);
+
+        // le tableau est dans l'ordre inverse :
+        // la date suivante est l'élément précédent dans le tableau,
+        // la date précédente est l'élément suivant dans le tableau
+        $previous_index = $current_index + 1;
+        $next_index = $current_index - 1;
 ?>
             <nav>
                 <ul>
+<?php
+        if($previous_index < count($entries))
+        {
+            // récupérer le nom du fichier dans un chemin,
+            // et supprimer l'extension : basename
+            // http://php.net/manual/fr/function.basename.php
+            $previous_article = basename($entries[$previous_index], ".php");
+
+            // guillemets doubles (") vs simples (') :
+            // intégrer une variable directement dans la chaîne
+            // http://php.net/manual/fr/language.types.string.php
+            echo "<li><a href=\"?wanted=$previous_article\">précédent</a></li>\n";
+        }
+?>
                     <li><a href=".">accueil</a></li>
+<?php
+        if($next_index >= 0)
+        {
+            // récupérer le nom du fichier dans un chemin,
+            // et supprimer l'extension : basename
+            // http://php.net/manual/fr/function.basename.php
+            $next_article = basename($entries[$next_index], ".php");
+
+            // guillemets doubles (") vs simples (') :
+            // intégrer une variable directement dans la chaîne
+            // http://php.net/manual/fr/language.types.string.php
+            echo "<li><a href=\"?wanted=$next_article\">suivant</a></li>\n";
+        }
+?>
                 </ul>
             </nav>
             <main>
@@ -51,16 +101,6 @@ if(!$show_article)
             <nav>
                 <ul>
 <?php
-    // lister le contenu d'un répertoire dans un tableau : scandir
-    // http://php.net/manual/fr/function.scandir.php
-    // attention à l'ordre
-
-    $entries = scandir($articles_dir, SCANDIR_SORT_DESCENDING);
-
-    // supprimer . et .. : différence de 2 tableaux
-
-    $entries = array_diff($entries, array(".", ".."));
-
     // parcourir tous les éléments d'un tableau : foreach
     // http://php.net/manual/fr/control-structures.foreach.php
 
