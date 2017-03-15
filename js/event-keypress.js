@@ -54,13 +54,13 @@ Keypress.prototype.create_listener = function() {
             }
             else if(
                 position.x > (
-                    world_.elt.offsetWidth -
+                    world_.elt.clientWidth -
                     world_.character.elt.offsetWidth
                 )
             )
             {
                 position.x =
-                    world_.elt.offsetWidth -
+                    world_.elt.clientWidth -
                     world_.character.elt.offsetWidth;
             }
 
@@ -70,18 +70,18 @@ Keypress.prototype.create_listener = function() {
             }
             else if(
                 position.y > (
-                    world_.elt.offsetHeight -
+                    world_.elt.clientHeight -
                     world_.character.elt.offsetHeight
                 )
             )
             {
                 position.y =
-                    world_.elt.offsetHeight -
+                    world_.elt.clientHeight -
                     world_.character.elt.offsetHeight;
             }
 
-            world_.character.elt.style.left = "" + position.x + "px";
-            world_.character.elt.style.top = "" + position.y + "px";
+            world_.character.elt.style.left = position.x + "px";
+            world_.character.elt.style.top = position.y + "px";
 
             world_.hovered_level = null;
 
